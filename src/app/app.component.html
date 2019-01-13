@@ -46,8 +46,10 @@
                 <td class="col-data">{{lancamento.dataPagamento}}</td>
                 <td class="col-valor" [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor}}</td>
                 <td class="col-acoes">
-                  <button pButton type="button" icon="pi pi-pencil" style="padding: 0 10px; margin-right: 5px;"></button>
-                  <button pButton type="button" icon="pi pi-trash" style="padding: 0 10px;"></button>
+                  <button pButton type="button" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                  style="padding: 0 10px; margin-right: 5px;"></button>
+                  <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                  style="padding: 0 10px;"></button>
                 </td>
             </tr>
         </ng-template>
