@@ -15,3 +15,24 @@ label {
     margin: 0 auto;
   }
 }
+
+.col-data-header, .col-data {
+  width: 120px;
+}
+
+.col-data {
+  text-align: center;
+}
+
+.col-valor-header, .col-valor {
+  width: 120px;
+}
+
+.col-valor {
+  text-align: right;
+}
+
+.col-acoes {
+  width: 90px;
+  text-align: center;
+}
