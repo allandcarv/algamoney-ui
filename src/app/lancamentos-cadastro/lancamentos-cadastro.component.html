@@ -24,13 +24,8 @@
           <label>Descrição {{ descricao.errors | json }}</label>
           <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
-          <div *ngIf="descricao.hasError('required') && descricao.dirty" class="ui-message ui-messages-error">
-            Insira uma descrição
-          </div>
-
-          <div *ngIf="descricao.hasError('minlength') && descricao.dirty" class="ui-message ui-messages-error">
-            Mínimo de {{ descricao.errors.minlength.requiredLength }} caracteres
-          </div>
+          <app-message [control]="descricao" error="required" text="Insira uma descrição"></app-message>
+          <app-message [control]="descricao" error="minlength" text="Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres"></app-message>
         </div>
 
         <div class="ui-g-12 ui-md-3 ui-fluid">
