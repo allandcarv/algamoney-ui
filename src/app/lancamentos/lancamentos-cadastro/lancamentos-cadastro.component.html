@@ -13,28 +13,28 @@
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>Vencimento</label>
           <p-calendar dateFormat="dd/mm/yy" name="inputVencimento" required ngModel #inputVencimento="ngModel"></p-calendar>
-          <app-message [control]="inputVencimento" error="required"></app-message>
+          <!--<app-message [control]="inputVencimento" error="required"></app-message>-->
         </div>
 
         <div class="ui-g-6 ui-md-3 ui-fluid">
           <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
           <p-calendar dateFormat="dd/mm/yy" name="inputDate2" required ngModel #inputDate2="ngModel"></p-calendar>
-          <app-message [control]="inputDate2" error="required"></app-message>
+          <!--<app-message [control]="inputDate2" error="required"></app-message>-->
         </div>
 
         <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Descrição</label>
           <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
-          <app-message [control]="descricao" error="required"></app-message>
-          <app-message [control]="descricao" error="minlength" text="Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres"></app-message>
+          <!--<app-message [control]="descricao" error="required"></app-message>
+          <app-message [control]="descricao" error="minlength" text="Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres"></app-message>-->
         </div>
 
         <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Valor</label>
           <input pInputText type="text" placeholder="0,00" name="inputValor"
             currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" ngModel required #inputValor="ngModel">
-          <app-message [control]="inputValor" error="required"></app-message>
+          <!--<app-message [control]="inputValor" error="required"></app-message>-->
         </div>
 
         <div class="ui-g-12 ui-md-6 ui-fluid">
