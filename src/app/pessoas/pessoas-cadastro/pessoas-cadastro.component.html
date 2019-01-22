@@ -10,20 +10,20 @@
       <div class="form-group ui-fluid ui-g-12">
         <label>Nome</label>
         <input type="text" pInputText required minlength="5" name="inputName" ngModel #inputName="ngModel">
-        <app-message [control]="inputName" error="required"></app-message>
-        <app-message [control]="inputName" error="minlength" text="Mínimo de {{ inputName.errors?.minlength?.requiredLength }} caracteres"></app-message>
+        <!--<app-message [control]="inputName" error="required"></app-message>
+        <app-message [control]="inputName" error="minlength" text="Mínimo de {{ inputName.errors?.minlength?.requiredLength }} caracteres"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-9">
         <label>Logradouro</label>
         <input type="text" pInputText required name="inputLogradouro" ngModel #inputLogradouro="ngModel">
-        <app-message [control]="inputLogradouro" error="required"></app-message>
+        <!--<app-message [control]="inputLogradouro" error="required"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-3">
         <label>Número</label>
         <input type="text" pInputText required name="inputNumero" ngModel #inputNumero="ngModel">
-        <app-message [control]="inputNumero" error="required"></app-message>
+        <!--<app-message [control]="inputNumero" error="required"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-4">
@@ -34,25 +34,25 @@
       <div class="form-group ui-fluid ui-g-12 ui-md-4">
         <label>Bairro</label>
         <input type="text" pInputText required name="inputBairro" ngModel #inputBairro="ngModel">
-        <app-message [control]="inputBairro" error="required"></app-message>
+        <!--<app-message [control]="inputBairro" error="required"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-4">
         <label>CEP</label>
         <p-inputMask mask="99.999-999" required name="inputCEP" ngModel #inputCEP="ngModel"></p-inputMask>
-        <app-message [control]="inputCEP" error="required"></app-message>
+        <!--<app-message [control]="inputCEP" error="required"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-6">
         <label>Cidade</label>
         <input type="text" pInputText required name="inputCidade" ngModel #inputCidade="ngModel">
-        <app-message [control]="inputCidade" error="required"></app-message>
+        <!--<app-message [control]="inputCidade" error="required"></app-message>-->
       </div>
 
       <div class="form-group ui-fluid ui-g-12 ui-md-6">
         <label>Estado</label>
         <input type="text" pInputText required name="inputEstado" ngModel #inputCidade="ngModel">
-        <app-message [control]="inputCidade" error="required"></app-message>
+        <!--<app-message [control]="inputCidade" error="required"></app-message>-->
       </div>
 
       <div class="ui-g-12">
