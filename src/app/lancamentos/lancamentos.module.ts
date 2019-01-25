@@ -1,6 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -16,6 +17,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos-cadastro.component';
+import { LancamentosService } from './lancamentos.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -39,11 +41,13 @@ import { SharedModule } from '../shared/shared.module';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
+    HttpClientModule,
 
     CurrencyMaskModule,
 
     SharedModule
 
-  ]
+  ],
+  providers: [LancamentosService]
 })
 export class LancamentosModule { }
