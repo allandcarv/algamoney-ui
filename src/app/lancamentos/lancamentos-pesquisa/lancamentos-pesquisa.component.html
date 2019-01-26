@@ -13,10 +13,12 @@
 
         <div class="ui-g-12">
           <label style="display: block">Vencimento</label>
-          <input type="text" pInputText style="width: 95px">
+          <p-calendar name="inputVencimentoInicio" [(ngModel)]="dataVencimentoInicio"
+            dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"></p-calendar>
 
           <label>até</label>
-          <input type="text" pInputText style="width: 95px">
+          <p-calendar name="inputVencimentoFim" [(ngModel)]="dataVencimentoFim"
+            dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"></p-calendar>
         </div>
 
         <div class="ui-g-12">
@@ -68,6 +70,10 @@
                     <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
                   </td>
               </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+              Nenhum registro encontrado
           </ng-template>
         </p-table>
 
