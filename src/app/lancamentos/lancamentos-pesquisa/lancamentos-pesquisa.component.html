@@ -8,16 +8,16 @@
       <form autocomplete="off" (ngSubmit)="consultar()">
         <div class="ui-g-12 ui-fluid">
           <label>Descrição</label>
-          <input type="text" pInputText class="container" name="inputDescricao" [(ngModel)]="descricao">
+          <input type="text" pInputText class="container" name="inputDescricao" [(ngModel)]="filtro.descricao">
         </div>
 
         <div class="ui-g-12">
           <label style="display: block">Vencimento</label>
-          <p-calendar name="inputVencimentoInicio" [(ngModel)]="dataVencimentoInicio"
+          <p-calendar name="inputVencimentoInicio" [(ngModel)]="filtro.dataVencimentoInicio"
             dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"></p-calendar>
 
           <label>até</label>
-          <p-calendar name="inputVencimentoFim" [(ngModel)]="dataVencimentoFim"
+          <p-calendar name="inputVencimentoFim" [(ngModel)]="filtro.dataVencimentoFim"
             dateFormat="dd/mm/yy" [inputStyle]="{ width: '95px' }"></p-calendar>
         </div>
 

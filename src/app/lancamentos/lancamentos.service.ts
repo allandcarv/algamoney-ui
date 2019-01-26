@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import * as moment from 'moment';
+import { resetComponentState } from '@angular/core/src/render3/state';
 
-export interface LancamentoFiltro {
+export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;
   dataVencimentoFim: Date;
+  page = 0;
+  size = 5;
 }
 
 @Injectable({
@@ -36,10 +39,18 @@ export class LancamentosService {
       params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    console.log(params);
+    params = params.append('page', filtro.page.toString());
+    params = params.append('size', filtro.size.toString());
 
     return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
       .toPromise()
-      .then(response => response.content);
+      .then(response => {
+        const resposta = {
+          lancamentos: response.content,
+          total: response.totalElements
+        };
+
+        return resposta;
+      });
   }
 }
