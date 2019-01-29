@@ -12,6 +12,7 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
 import { PessoasCadastroComponent } from './pessoas-cadastro/pessoas-cadastro.component';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { SharedModule } from './../shared/shared.module';
+import { PessoasService } from './pessoas.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,8 @@ import { SharedModule } from './../shared/shared.module';
     InputMaskModule,
 
     SharedModule
-  ]
+  ],
+  providers: [PessoasService]
 })
+
 export class PessoasModule { }

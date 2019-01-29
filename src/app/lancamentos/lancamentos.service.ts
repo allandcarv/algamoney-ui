@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import * as moment from 'moment';
-import { resetComponentState } from '@angular/core/src/render3/state';
+
+interface HttpResults {
+  content: any;
+  totalElements: number;
+}
 
 export class LancamentoFiltro {
   descricao: string;
@@ -18,39 +22,42 @@ export class LancamentoFiltro {
 export class LancamentosService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos';
+  headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
   constructor(private http: HttpClient) { }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
-    const headers: HttpHeaders = new HttpHeaders()
-      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
     let params: HttpParams = new HttpParams();
 
+    params = params.set('page', filtro.page.toString());
+    params = params.set('size', filtro.size.toString());
+
     if (filtro.descricao) {
-      params = params.append('descricao', filtro.descricao);
+      params = params.set('descricao', filtro.descricao);
     }
 
     if (filtro.dataVencimentoInicio) {
-      params = params.append('dataVencimentoDe', moment(filtro.dataVencimentoInicio).format('YYYY-MM-DD'));
+      params = params.set('dataVencimentoDe', moment(filtro.dataVencimentoInicio).format('YYYY-MM-DD'));
     }
 
     if (filtro.dataVencimentoFim) {
-      params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
+      params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    params = params.append('page', filtro.page.toString());
-    params = params.append('size', filtro.size.toString());
-
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
+    return this.http.get<HttpResults>(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
       .toPromise()
       .then(response => {
         const resposta = {
           lancamentos: response.content,
           total: response.totalElements
         };
-
         return resposta;
       });
+  }
+
+  excluir(codigo: number): Promise<void> {
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+    .toPromise()
+    .then(() => null);
   }
 }

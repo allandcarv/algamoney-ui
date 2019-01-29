@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/components/common/api';
 
@@ -11,25 +11,37 @@ import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  totalRegistros = 0;
   filtro: LancamentoFiltro = new LancamentoFiltro();
   lancamentos = [];
+  totalElements = 0;
+  @ViewChild('lancamentosTable') lancamentosTable;
 
   constructor(private lancamentosService: LancamentosService) { }
 
-  ngOnInit() {
-    this.filtro.page = 0;
-  }
+  ngOnInit() {}
 
-  consultar() {
-    this.lancamentosService.consultar(this.filtro).then(resposta => {
-      this.totalRegistros = resposta.total;
+  consultar(page = 0): Promise<any> {
+    this.filtro.page = page;
+
+    if (this.filtro.page === 0) {
+      this.lancamentosTable.first = 0;
+    }
+
+    return this.lancamentosService.consultar(this.filtro).then(resposta => {
+      this.totalElements = resposta.total;
       this.lancamentos = resposta.lancamentos;
     });
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
-    this.filtro.page = event.first / event.rows;
-    this.consultar();
+    const page = event.first / event.rows;
+    this.consultar(page);
+  }
+
+  excluir(codigo: number) {
+    this.lancamentosService.excluir(codigo).then(() => {
+      this.consultar();
+      this.lancamentosTable.first = 0;
+    });
   }
 }
