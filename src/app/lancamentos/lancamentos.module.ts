@@ -11,6 +11,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
@@ -40,6 +41,7 @@ import { SharedModule } from '../shared/shared.module';
     SelectButtonModule,
     DropdownModule,
     HttpClientModule,
+    ToastModule,
 
     CurrencyMaskModule,
 
