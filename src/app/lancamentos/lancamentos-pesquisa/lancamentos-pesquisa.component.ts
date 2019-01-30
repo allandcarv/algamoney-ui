@@ -1,3 +1,4 @@
+import { ConfirmationService } from 'primeng/api';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent, MessageService } from 'primeng/components/common/api';
@@ -18,7 +19,8 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   constructor(
     private lancamentosService: LancamentosService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
     ) { }
 
   ngOnInit() {}
@@ -41,6 +43,15 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.consultar(page);
   }
 
+  confirmarExclusao(codigo: number) {
+    this.confirmationService.confirm({
+      message: `Você tem certeza que quer excluir o lançamento de código ${codigo}?`,
+      accept: () => {
+        this.excluir(codigo);
+      }
+    });
+  }
+
   excluir(codigo: number) {
     this.lancamentosService.excluir(codigo).then(() => {
       this.consultar();
@@ -50,6 +61,6 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   showSuccess() {
-    this.messageService.add({severity: 'success', summary: '', detail: 'Lançamento Excluído com Sucesso'});
+    this.messageService.add({severity: 'success', summary: '', detail: 'Lançamento excluído com sucesso'});
   }
 }

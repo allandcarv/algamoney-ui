@@ -1,4 +1,3 @@
-<p-toast position="bottom-right"></p-toast>
 <div class="container">
     <div class="ui-g">
 
@@ -70,7 +69,7 @@
                   </td>
                   <td class="col-acoes">
                     <button pButton type="button" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5px;"></button>
-                    <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="excluir(lancamento.codigo)"></button>
+                    <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lancamento.codigo)"></button>
                   </td>
               </tr>
           </ng-template>
