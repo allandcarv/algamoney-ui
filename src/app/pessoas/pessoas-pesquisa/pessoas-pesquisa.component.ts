@@ -4,6 +4,7 @@ import { LazyLoadEvent, MessageService } from 'primeng/components/common/api';
 import { ConfirmationService } from 'primeng/api';
 
 import { PessoasService, PessoasFiltro } from './../pessoas.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -20,7 +21,8 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor(
     private pessoasService: PessoasService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private errorHandlerService: ErrorHandlerService
     ) {
     this.filtro.page = 0;
   }
@@ -39,7 +41,7 @@ export class PessoasPesquisaComponent implements OnInit {
       this.pessoas = response.content;
       this.totalElements = response.totalElements;
     })
-    .catch(error => this.showError(error));
+    .catch(error => { this.errorHandlerService.handler(error); });
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
@@ -57,23 +59,10 @@ export class PessoasPesquisaComponent implements OnInit {
   excluir(pessoa: any) {
     this.pessoasService.excluir(pessoa.codigo)
       .then(() => { this.showSuccess(pessoa.nome); } )
-      .catch(error => { this.showError(error); })      ;
+      .catch(error => { this.errorHandlerService.handler(error); });
   }
 
   showSuccess(nome: string) {
     this.messageService.add({severity: 'success', summary: '', detail: `${nome} foi excluído(a) com sucesso` });
-  }
-
-  showError(errorResponse: any) {
-    let msg: string;
-
-    if (typeof errorResponse === 'string') {
-      msg = errorResponse;
-    } else {
-      msg = 'Erro em procedimento remoto. Tente novamente';
-      console.log(errorResponse);
-    }
-
-    this.messageService.add({severity: 'error', summary: '', detail: msg});
   }
 }
