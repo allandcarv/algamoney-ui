@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { LazyLoadEvent, MessageService } from 'primeng/components/common/api';
+import { ConfirmationService } from 'primeng/api';
+
 import { PessoasService, PessoasFiltro } from './../pessoas.service';
-import { LazyLoadEvent } from 'primeng/components/common/api';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -15,7 +17,11 @@ export class PessoasPesquisaComponent implements OnInit {
   totalElements = 0;
   @ViewChild('pessoasGrid') pessoasGrid;
 
-  constructor(private pessoasService: PessoasService) {
+  constructor(
+    private pessoasService: PessoasService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+    ) {
     this.filtro.page = 0;
   }
 
@@ -28,14 +34,46 @@ export class PessoasPesquisaComponent implements OnInit {
     if (this.filtro.page === 0) {
       this.pessoasGrid.first = 0;
     }
-    return this.pessoasService.pesquisar(this.filtro).then(response => {
+    return this.pessoasService.pesquisar(this.filtro)
+    .then(response => {
       this.pessoas = response.content;
       this.totalElements = response.totalElements;
-    });
+    })
+    .catch(error => this.showError(error));
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.pesquisar(page);
+  }
+
+  confirmarExclusao(pessoa: any) {
+    this.confirmationService.confirm({
+      message: `Você deseja mesmo excluir ${pessoa.nome}`,
+      accept: () => { this.excluir(pessoa); }
+    });
+  }
+
+  excluir(pessoa: any) {
+    this.pessoasService.excluir(pessoa.codigo)
+      .then(() => { this.showSuccess(pessoa.nome); } )
+      .catch(error => { this.showError(error); })      ;
+  }
+
+  showSuccess(nome: string) {
+    this.messageService.add({severity: 'success', summary: '', detail: `${nome} foi excluído(a) com sucesso` });
+  }
+
+  showError(errorResponse: any) {
+    let msg: string;
+
+    if (typeof errorResponse === 'string') {
+      msg = errorResponse;
+    } else {
+      msg = 'Erro em procedimento remoto. Tente novamente';
+      console.log(errorResponse);
+    }
+
+    this.messageService.add({severity: 'error', summary: '', detail: msg});
   }
 }

@@ -43,4 +43,7 @@ export class PessoasService {
     return this.http.get<HttpResults>(this.pessoasUrl, { headers: this.headers }).toPromise().then(response => response.content);
   }
 
+  excluir(codigo: number): Promise<void> {
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers: this.headers } ).toPromise().then(() => null);
+  }
 }
