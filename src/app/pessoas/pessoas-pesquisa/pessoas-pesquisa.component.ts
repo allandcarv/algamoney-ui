@@ -23,9 +23,7 @@ export class PessoasPesquisaComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private errorHandlerService: ErrorHandlerService
-    ) {
-    this.filtro.page = 0;
-  }
+    ) {}
 
   ngOnInit() {
   }
@@ -36,6 +34,7 @@ export class PessoasPesquisaComponent implements OnInit {
     if (this.filtro.page === 0) {
       this.pessoasGrid.first = 0;
     }
+
     return this.pessoasService.pesquisar(this.filtro)
     .then(response => {
       this.pessoas = response.content;
@@ -58,11 +57,32 @@ export class PessoasPesquisaComponent implements OnInit {
 
   excluir(pessoa: any) {
     this.pessoasService.excluir(pessoa.codigo)
-      .then(() => { this.showSuccess(pessoa.nome); } )
+      .then(() => { this.showSuccess(`${pessoa.nome} foi excluído(a) com sucesso.`); } )
       .catch(error => { this.errorHandlerService.handler(error); });
   }
 
-  showSuccess(nome: string) {
-    this.messageService.add({severity: 'success', summary: '', detail: `${nome} foi excluído(a) com sucesso` });
+  atualizarStatus(rowdata: any) {
+    this.pessoasService.atualizarStatus(rowdata)
+      .then(response => {
+        const index = this.pessoas.indexOf(rowdata);
+        this.pessoas[index] = response;
+        this.showSuccess('Estado atualizado com sucesso');
+      })
+      .catch(error => { this.errorHandlerService.handler(error); });
+  }
+
+  showSuccess(msg: string) {
+    this.messageService.add({severity: 'success', summary: '', detail: msg });
+  }
+
+  teste(rowdata: any) {
+    console.log(rowdata);
+    rowdata.ativo = false;
+    let index = 0;
+    console.log(rowdata);
+    index = this.pessoas.indexOf(rowdata);
+    this.pessoas[index].ativo = false;
+    //this.pessoas = [...this.pessoas];
+    console.log(this.pessoas);
   }
 }

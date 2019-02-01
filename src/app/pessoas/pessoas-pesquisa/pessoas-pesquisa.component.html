@@ -31,13 +31,13 @@
             <th class="col-acoes"></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-pessoas>
+        <ng-template pTemplate="body" let-pessoas let-rowData>
           <tr>
             <td>{{pessoas.nome}}</td>
             <td>{{pessoas.endereco.cidade}}</td>
             <td>{{pessoas.endereco.estado}}</td>
             <td>
-              <a href="javascript;:" [pTooltip]="pessoas.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top">
+              <a href="#" [pTooltip]="pessoas.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="atualizarStatus(rowData)">
                 {{ pessoas.ativo ? 'Ativo' : 'Inativo' }}
               </a>
             </td>

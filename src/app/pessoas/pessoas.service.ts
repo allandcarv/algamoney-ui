@@ -16,6 +16,7 @@ export class PessoasFiltro {
 export class PessoasService {
   pessoasUrl = 'http://localhost:8080/pessoas';
   headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+  status: any;
 
   constructor(private http: HttpClient) {}
 
@@ -45,5 +46,20 @@ export class PessoasService {
 
   excluir(codigo: number): Promise<void> {
     return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers: this.headers } ).toPromise().then(() => null);
+  }
+
+  atualizarStatus(rowdata: any): Promise<any> {
+
+    const headers = this.headers.set('Content-Type', 'application/json');
+
+    (rowdata.ativo) ? rowdata.ativo = false : rowdata.ativo = true;
+
+    return this.http.put(`${this.pessoasUrl}/${rowdata.codigo}/ativo`, rowdata.ativo, { headers })
+      .toPromise()
+      .then( () => rowdata );
+  }
+
+  mostraStatus(status: any) {
+    this.status = status;
   }
 }
