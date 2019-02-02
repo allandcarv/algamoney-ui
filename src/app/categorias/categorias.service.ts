@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CategoriasService {
-  categoriasUrl = 'http://localhost:4200/categorias';
+  categoriasUrl = 'http://localhost:8080/categorias';
   headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
   constructor( private http: HttpClient ) { }

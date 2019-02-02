@@ -1,3 +1,4 @@
+import { CategoriasService } from './categorias/categorias.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -34,7 +35,8 @@ registerLocaleData(localePt);
   providers: [
     MessageService,
     ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt' }
+    { provide: LOCALE_ID, useValue: 'pt' },
+    CategoriasService
   ],
   bootstrap: [AppComponent]
 })
