@@ -48,20 +48,21 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.consultar(page);
   }
 
-  confirmarExclusao(codigo: number) {
+  confirmarExclusao(rowData: any) {
     this.confirmationService.confirm({
-      message: `Você tem certeza que quer excluir o lançamento de código ${codigo}?`,
+      message: `Você tem certeza que quer excluir o lançamento de código ${rowData.codigo}?`,
       accept: () => {
-        this.excluir(codigo);
+        this.excluir(rowData);
       }
     });
   }
 
-  excluir(codigo: number) {
-    this.lancamentosService.excluir(codigo)
+  excluir(rowData: any) {
+    this.lancamentosService.excluir(rowData.codigo)
       .then(() => {
-        this.consultar();
-        this.lancamentosTable.first = 0;
+        const index = this.lancamentos.indexOf(rowData);
+        this.lancamentos.splice(index, 1);
+        this.lancamentos = [...this.lancamentos];
         this.showSuccess();
       })
       .catch(error => this.errorHandlerService.handler(error));

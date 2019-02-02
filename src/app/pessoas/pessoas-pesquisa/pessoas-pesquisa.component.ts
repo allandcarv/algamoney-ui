@@ -48,16 +48,21 @@ export class PessoasPesquisaComponent implements OnInit {
     this.pesquisar(page);
   }
 
-  confirmarExclusao(pessoa: any) {
+  confirmarExclusao(rowData: any) {
     this.confirmationService.confirm({
-      message: `Você deseja mesmo excluir ${pessoa.nome}`,
-      accept: () => { this.excluir(pessoa); }
+      message: `Você deseja mesmo excluir ${rowData.nome}`,
+      accept: () => { this.excluir(rowData); }
     });
   }
 
-  excluir(pessoa: any) {
-    this.pessoasService.excluir(pessoa.codigo)
-      .then(() => { this.showSuccess(`${pessoa.nome} foi excluído(a) com sucesso.`); } )
+  excluir(rowData: any) {
+    this.pessoasService.excluir(rowData.codigo)
+      .then(() => {
+        const index = this.pessoas.indexOf(rowData);
+        this.pessoas.splice(index, 1);
+        this.pessoas = [...this.pessoas];
+        this.showSuccess(`${rowData.nome} foi excluído(a) com sucesso.`);
+      } )
       .catch(error => { this.errorHandlerService.handler(error); });
   }
 
@@ -75,14 +80,4 @@ export class PessoasPesquisaComponent implements OnInit {
     this.messageService.add({severity: 'success', summary: '', detail: msg });
   }
 
-  teste(rowdata: any) {
-    console.log(rowdata);
-    rowdata.ativo = false;
-    let index = 0;
-    console.log(rowdata);
-    index = this.pessoas.indexOf(rowdata);
-    this.pessoas[index].ativo = false;
-    //this.pessoas = [...this.pessoas];
-    console.log(this.pessoas);
-  }
 }

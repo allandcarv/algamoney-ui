@@ -33,7 +33,7 @@
         <!-- GRID INICIO -->
         <p-table [value]="lancamentos" [responsive]="true"
           [paginator]="true" [rows]="filtro.size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="aoMudarPagina($event)"
-          #lancamentosTable>
+          #lancamentosTable rowData>
           <ng-template pTemplate="header">
             <tr>
               <th>Pessoa</th>
@@ -45,7 +45,7 @@
             </tr>
           </ng-template>
 
-          <ng-template pTemplate="body" let-lancamento>
+          <ng-template pTemplate="body" let-lancamento let-rowData>
               <tr>
                   <td>
                     <span class="ui-column-title">Pessoa</span>
@@ -69,7 +69,7 @@
                   </td>
                   <td class="col-acoes">
                     <button pButton type="button" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5px;"></button>
-                    <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(lancamento.codigo)"></button>
+                    <button pButton type="button" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="confirmarExclusao(rowData)"></button>
                   </td>
               </tr>
           </ng-template>
