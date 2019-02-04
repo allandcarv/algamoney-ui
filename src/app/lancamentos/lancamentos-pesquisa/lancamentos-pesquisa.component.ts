@@ -16,6 +16,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   filtro: LancamentoFiltro = new LancamentoFiltro();
   lancamentos = [];
   totalElements = 0;
+  numberOfElements: number;
   @ViewChild('lancamentosTable') lancamentosTable;
 
   constructor(
@@ -39,6 +40,7 @@ export class LancamentosPesquisaComponent implements OnInit {
       .then(resposta => {
         this.totalElements = resposta.total;
         this.lancamentos = resposta.lancamentos;
+        this.numberOfElements = resposta.numberOfElements;
       })
       .catch(error => this.errorHandlerService.handler(error));
   }
@@ -63,7 +65,13 @@ export class LancamentosPesquisaComponent implements OnInit {
         // const index = this.lancamentos.indexOf(rowData);
         // this.lancamentos.splice(index, 1);
         // this.lancamentos = [...this.lancamentos];
-        this.consultar(this.filtro.page);
+        let page;
+        if (this.numberOfElements === 1) {
+          page = this.filtro.page - 1;
+        } else {
+          page = this.filtro.page;
+        }
+        this.consultar(page);
         this.showSuccess();
       })
       .catch(error => this.errorHandlerService.handler(error));

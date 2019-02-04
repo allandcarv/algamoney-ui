@@ -3,9 +3,12 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import * as moment from 'moment';
 
+import { Lancamento } from '../core/models/lancamento.model';
+
 interface HttpResults {
   content: any;
   totalElements: number;
+  numberOfElements: number;
 }
 
 export class LancamentoFiltro {
@@ -22,11 +25,11 @@ export class LancamentoFiltro {
 export class LancamentosService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos';
-  headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
   constructor(private http: HttpClient) { }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     let params: HttpParams = new HttpParams();
 
     params = params.set('page', filtro.page.toString());
@@ -44,20 +47,32 @@ export class LancamentosService {
       params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    return this.http.get<HttpResults>(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
+    return this.http.get<HttpResults>(`${this.lancamentosUrl}?resumo`, { headers, params })
       .toPromise()
       .then(response => {
         const resposta = {
           lancamentos: response.content,
-          total: response.totalElements
+          total: response.totalElements,
+          numberOfElements: response.numberOfElements
         };
         return resposta;
       });
   }
 
   excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
     .toPromise()
     .then(() => null);
+  }
+
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
+    let headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers } )
+      .toPromise()
+      .then(response => response);
   }
 }
