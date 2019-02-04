@@ -58,9 +58,10 @@ export class PessoasPesquisaComponent implements OnInit {
   excluir(rowData: any) {
     this.pessoasService.excluir(rowData.codigo)
       .then(() => {
-        const index = this.pessoas.indexOf(rowData);
-        this.pessoas.splice(index, 1);
-        this.pessoas = [...this.pessoas];
+        // const index = this.pessoas.indexOf(rowData);
+        // this.pessoas.splice(index, 1);
+        // this.pessoas = [...this.pessoas];
+        this.pesquisar(this.filtro.page);
         this.showSuccess(`${rowData.nome} foi excluído(a) com sucesso.`);
       } )
       .catch(error => { this.errorHandlerService.handler(error); });

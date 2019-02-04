@@ -60,9 +60,10 @@ export class LancamentosPesquisaComponent implements OnInit {
   excluir(rowData: any) {
     this.lancamentosService.excluir(rowData.codigo)
       .then(() => {
-        const index = this.lancamentos.indexOf(rowData);
-        this.lancamentos.splice(index, 1);
-        this.lancamentos = [...this.lancamentos];
+        // const index = this.lancamentos.indexOf(rowData);
+        // this.lancamentos.splice(index, 1);
+        // this.lancamentos = [...this.lancamentos];
+        this.consultar(this.filtro.page);
         this.showSuccess();
       })
       .catch(error => this.errorHandlerService.handler(error));

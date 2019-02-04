@@ -36,7 +36,7 @@ import { PessoasService } from './pessoas.service';
 
     SharedModule
   ],
-  providers: [PessoasService]
+  providers: []
 })
 
 export class PessoasModule { }

@@ -35,8 +35,7 @@ registerLocaleData(localePt);
   providers: [
     MessageService,
     ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt' },
-    CategoriasService
+    { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [AppComponent]
 })

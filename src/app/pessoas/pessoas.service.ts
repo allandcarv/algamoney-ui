@@ -40,7 +40,7 @@ export class PessoasService {
     });
   }
 
-  listarTodos(): Promise<any> {
+  listarPessoas(): Promise<any> {
     return this.http.get<HttpResults>(this.pessoasUrl, { headers: this.headers }).toPromise().then(response => response.content);
   }
 

@@ -46,6 +46,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
 
   ],
-  providers: [LancamentosService]
+  providers: []
 })
 export class LancamentosModule { }
