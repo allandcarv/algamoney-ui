@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { PessoasService } from './../pessoas/pessoas.service';
 import { LancamentosService } from './../lancamentos/lancamentos.service';
 import { CategoriasService } from './../categorias/categorias.service';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { CategoriasService } from './../categorias/categorias.service';
     NavbarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   providers: [
     ErrorHandlerService,
