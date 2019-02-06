@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { LancamentosService } from './../lancamentos.service';
 import { CategoriasService } from './../../categorias/categorias.service';
@@ -30,10 +31,13 @@ export class LancamentosCadastroComponent implements OnInit {
     private categoriasService: CategoriasService,
     private pessoasService: PessoasService,
     private messageService: MessageService,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
+    console.log(this.activatedRoute.snapshot.params['codigo']);
+
     this.listarCategorias();
     this.listarPessoas();
   }
