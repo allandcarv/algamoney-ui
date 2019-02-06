@@ -6,7 +6,7 @@ export class Lancamento {
   tipo = 'RECEITA';
   descricao: string;
   dataVencimento: Date;
-  dataPagamento: DataCue;
+  dataPagamento: Date;
   valor: number;
   observacao: string;
   pessoa = new Pessoa();

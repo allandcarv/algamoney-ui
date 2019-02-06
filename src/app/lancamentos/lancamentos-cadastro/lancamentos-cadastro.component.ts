@@ -25,6 +25,7 @@ export class LancamentosCadastroComponent implements OnInit {
   ];
   categorias = [];
   pessoas = [];
+  codigo: number;
 
   constructor(
     private lancamentosService: LancamentosService,
@@ -36,7 +37,8 @@ export class LancamentosCadastroComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log(this.activatedRoute.snapshot.params['codigo']);
+    this.codigo = this.activatedRoute.snapshot.params['codigo'];
+    this.lancamentosService.buscarPorCodigo(this.codigo);
 
     this.listarCategorias();
     this.listarPessoas();
