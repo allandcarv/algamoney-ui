@@ -25,7 +25,6 @@ export class LancamentosCadastroComponent implements OnInit {
   ];
   categorias = [];
   pessoas = [];
-  codigo: number;
 
   constructor(
     private lancamentosService: LancamentosService,
@@ -37,11 +36,20 @@ export class LancamentosCadastroComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.codigo = this.activatedRoute.snapshot.params['codigo'];
-    this.lancamentosService.buscarPorCodigo(this.codigo);
+    const codigoLancamento = this.activatedRoute.snapshot.params['codigo'];
+
+    if (codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
 
     this.listarCategorias();
     this.listarPessoas();
+  }
+
+  carregarLancamento(codigoLancamento: number) {
+    this.lancamentosService.buscarPorCodigo(codigoLancamento)
+      .then(response => this.lancamento = response)
+      .catch(error => this.errorHandlerService.handler(error));
   }
 
   adicionar(form: FormControl) {
