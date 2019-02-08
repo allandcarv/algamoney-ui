@@ -1,5 +1,5 @@
 <div class="container">
-    <form #lancamentosForm="ngForm" autocomplete="off" (ngSubmit)="adicionar(lancamentosForm)">
+    <form #lancamentosForm="ngForm" autocomplete="off" (ngSubmit)="salvar(lancamentosForm)">
 
       <div class="ui-g">
         <div class="ui-g-12">
@@ -54,7 +54,7 @@
 
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" [disabled]="lancamentosForm.invalid"></button>
-          <button pButton type="button" label="Novo" (click)="lancamentosForm.reset()"></button>
+          <button pButton type="button" label="Novo" routerLink="/lancamentos/novo"></button>
           <a routerLink="/lancamentos">Voltar para a pesquisa</a>
         </div>
       </div>
