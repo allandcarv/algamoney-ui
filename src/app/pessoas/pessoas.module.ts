@@ -20,10 +20,7 @@ import { PessoasService } from './pessoas.service';
     PessoasPesquisaComponent,
     PessoasGridComponent
   ],
-  exports: [
-    PessoasCadastroComponent,
-    PessoasPesquisaComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     FormsModule,

@@ -17,6 +17,7 @@ import { PessoasModule } from './pessoas/pessoas.module';
 import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosCadastroComponent } from './lancamentos/lancamentos-cadastro/lancamentos-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
+import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 
 registerLocaleData(localePt);
 
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'lancamentos', component: LancamentosPesquisaComponent },
   { path: 'lancamentos/novo', component: LancamentosCadastroComponent },
   { path: 'lancamentos/:codigo', component: LancamentosCadastroComponent },
-  { path: 'pessoas', component: PessoasPesquisaComponent }
+  { path: 'pessoas', component: PessoasPesquisaComponent },
+  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
+  { path: '**', redirectTo: 'pagina-nao-encontrada', pathMatch: 'full' }
 ];
 
 @NgModule({

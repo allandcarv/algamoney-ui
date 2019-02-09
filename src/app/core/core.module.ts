@@ -7,11 +7,13 @@ import { ErrorHandlerService } from './error-handler.service';
 import { PessoasService } from './../pessoas/pessoas.service';
 import { LancamentosService } from './../lancamentos/lancamentos.service';
 import { CategoriasService } from './../categorias/categorias.service';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
   ],
   exports: [
     NavbarComponent

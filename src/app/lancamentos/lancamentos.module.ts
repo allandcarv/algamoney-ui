@@ -25,10 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     LancamentosCadastroComponent,
     LancamentosPesquisaComponent
   ],
-  exports: [
-    LancamentosCadastroComponent,
-    LancamentosPesquisaComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     FormsModule,
