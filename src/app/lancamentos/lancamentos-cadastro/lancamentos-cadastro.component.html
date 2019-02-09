@@ -7,6 +7,7 @@
         </div>
 
         <div class="ui-g-12">
+          {{ lancamento.tipo }}
           <p-selectButton [options]="tipos" #tipo name="tipos" [(ngModel)]="lancamento.tipo"></p-selectButton>
         </div>
 
@@ -54,7 +55,7 @@
 
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar" [disabled]="lancamentosForm.invalid"></button>
-          <button pButton type="button" label="Novo" routerLink="/lancamentos/novo"></button>
+          <button pButton type="button" label="Novo" (click)="novo(lancamentosForm)"></button>
           <a routerLink="/lancamentos">Voltar para a pesquisa</a>
         </div>
       </div>
