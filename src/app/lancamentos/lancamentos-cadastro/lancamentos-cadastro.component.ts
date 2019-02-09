@@ -8,6 +8,7 @@ import { PessoasService } from './../../pessoas/pessoas.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { MessageService } from 'primeng/components/common/api';
 import { Lancamento } from './../../core/models/lancamento.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamentos-cadastro',
@@ -32,10 +33,13 @@ export class LancamentosCadastroComponent implements OnInit {
     private messageService: MessageService,
     private errorHandlerService: ErrorHandlerService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
     ) { }
 
   ngOnInit() {
+    this.title.setTitle('AlgaMoney - Novo Lançamento');
+
     const codigoLancamento = this.activatedRoute.snapshot.params['codigo'];
 
     if (codigoLancamento) {
@@ -48,7 +52,10 @@ export class LancamentosCadastroComponent implements OnInit {
 
   carregarLancamento(codigoLancamento: number) {
     this.lancamentosService.buscarPorCodigo(codigoLancamento)
-      .then(response => this.lancamento = response)
+      .then(response => {
+        this.lancamento = response;
+        this.alterarTituloLancamento();
+      })
       .catch(error => this.errorHandlerService.handler(error));
   }
 
@@ -73,6 +80,7 @@ export class LancamentosCadastroComponent implements OnInit {
       .then(response => {
         this.lancamento = response;
         this.showSuccess('Lançamento atualizado com sucesso');
+        this.alterarTituloLancamento();
       })
       .catch(error => this.errorHandlerService.handler(error));
   }
@@ -103,5 +111,9 @@ export class LancamentosCadastroComponent implements OnInit {
 
   showSuccess(msg: string) {
     this.messageService.add({ severity: 'success', summary: '', detail: msg});
+  }
+
+  alterarTituloLancamento() {
+    this.title.setTitle(`AlgaMoney - Editando Lançamento: ${this.lancamento.descricao}`);
   }
 }

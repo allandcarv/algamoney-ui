@@ -17,7 +17,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos-cadastro.component';
-import { LancamentosService } from './lancamentos.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
