@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,6 +17,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosCadastroComponent } from './lancamentos-cadastro/lancamentos-cadastro.component';
 import { SharedModule } from '../shared/shared.module';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
 @NgModule({
   declarations: [
@@ -37,13 +37,11 @@ import { SharedModule } from '../shared/shared.module';
     SelectButtonModule,
     DropdownModule,
     HttpClientModule,
-    RouterModule,
 
     CurrencyMaskModule,
 
-    SharedModule
-
-  ],
-  providers: []
+    SharedModule,
+    LancamentosRoutingModule
+  ]
 })
 export class LancamentosModule { }

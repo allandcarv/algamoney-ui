@@ -24,14 +24,14 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
 
     ToastModule,
     ConfirmDialogModule,
 
     LancamentosModule,
     PessoasModule,
-    CoreModule
+    CoreModule,
+    AppRoutingModule
   ],
   providers: [
     MessageService,
