@@ -37,12 +37,12 @@
             <td>{{pessoas.endereco.cidade}}</td>
             <td>{{pessoas.endereco.estado}}</td>
             <td>
-              <a href="#" [pTooltip]="pessoas.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="atualizarStatus(rowData)">
+              <a href="javascript:;" [pTooltip]="pessoas.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="atualizarStatus(rowData)">
                 {{ pessoas.ativo ? 'Ativo' : 'Inativo' }}
               </a>
             </td>
             <td class="col-acoes">
-              <button pButton type="button" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5px;"></button>
+              <button pButton type="button" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5px;" [routerLink]="['/pessoas', pessoas.codigo]"></button>
               <button pButton type="button" icon="pi pi-trash" pTooltip="Apagar" tooltipPosition="top" (click)="confirmarExclusao(rowData)"></button>
             </td>
           </tr>
@@ -55,7 +55,7 @@
 
   <div class="ui-g">
     <div class="ui-g-12">
-      <button pButton type="button" label="Nova Pessoa"></button>
+      <button pButton type="button" label="Nova Pessoa" routerLink="/pessoas/novo"></button>
     </div>
   </div>
 </div>
