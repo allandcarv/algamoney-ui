@@ -13,13 +13,14 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +31,7 @@ registerLocaleData(localePt);
 
     LancamentosModule,
     PessoasModule,
+    SegurancaModule,
     CoreModule,
     AppRoutingModule
   ],

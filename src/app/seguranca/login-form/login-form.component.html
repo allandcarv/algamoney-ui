@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="loginBox">
+  <h1>Login</h1>
+  <form #loginForm="ngForm" autocomplete="off">
+    <div class="ui-g ui-fluid">
+      <div class="form-group ui-g-12">
+        <input type="text" pInputText placeholder="Email" name="user" ngModel required #user>
+      </div>
+      <div class="form-group ui-g-12">
+          <input type="password" pInputText placeholder="Senha" name="pass" ngModel required #pass>
+      </div>
+      <div class="form-group ui-g-12">
+          <button type="submit" pButton label="Entrar" [disabled]="loginForm.invalid" (click)="login(user.value, pass.value)"></button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>

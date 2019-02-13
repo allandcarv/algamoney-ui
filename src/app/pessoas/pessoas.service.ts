@@ -6,6 +6,7 @@ import { Pessoa } from '../core/models/pessoa.model';
 interface HttpResults {
   content: any;
   totalElements: number;
+  numberOfElements: number;
 }
 
 export class PessoasFiltro {
@@ -36,7 +37,8 @@ export class PessoasService {
     return this.http.get<HttpResults>(this.pessoasUrl, { headers, params }).toPromise().then(response => {
       const resposta = {
         content: response.content,
-        totalElements: response.totalElements
+        totalElements: response.totalElements,
+        numberOfElements: response.numberOfElements
       };
       return resposta;
     });

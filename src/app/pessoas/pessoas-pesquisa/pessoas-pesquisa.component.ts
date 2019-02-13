@@ -17,6 +17,7 @@ export class PessoasPesquisaComponent implements OnInit {
   filtro: PessoasFiltro = new PessoasFiltro();
   pessoas = [];
   totalElements = 0;
+  numberOfElements = 0;
   @ViewChild('pessoasGrid') pessoasGrid;
 
   constructor(
@@ -34,14 +35,14 @@ export class PessoasPesquisaComponent implements OnInit {
   pesquisar(page = 0): Promise<any> {
     this.filtro.page = page;
 
-    if (this.filtro.page === 0) {
-      this.pessoasGrid.first = 0;
-    }
+    this.pessoasGrid.first = this.filtro.page * this.filtro.size;
+
 
     return this.pessoasService.pesquisar(this.filtro)
     .then(response => {
       this.pessoas = response.content;
       this.totalElements = response.totalElements;
+      this.numberOfElements = response.numberOfElements;
     })
     .catch(error => { this.errorHandlerService.handler(error); });
   }
@@ -64,7 +65,13 @@ export class PessoasPesquisaComponent implements OnInit {
         // const index = this.pessoas.indexOf(rowData);
         // this.pessoas.splice(index, 1);
         // this.pessoas = [...this.pessoas];
-        this.pesquisar(this.filtro.page);
+        let page;
+        if (this.numberOfElements <= 1 && this.filtro.page > 0) {
+          page = this.filtro.page - 1;
+        } else {
+          page = this.filtro.page;
+        }
+        this.pesquisar(page);
         this.showSuccess(`${rowData.nome} foi excluído(a) com sucesso.`);
       } )
       .catch(error => { this.errorHandlerService.handler(error); });

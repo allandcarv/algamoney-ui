@@ -35,9 +35,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   consultar(page = 0): Promise<any> {
     this.filtro.page = page;
 
-    if (this.filtro.page === 0) {
-      this.lancamentosTable.first = 0;
-    }
+    this.lancamentosTable.first = this.filtro.page * this.filtro.size;
 
     return this.lancamentosService
       .consultar(this.filtro)
