@@ -7,6 +7,7 @@ import { ErrorHandlerService } from './error-handler.service';
 import { PessoasService } from './../pessoas/pessoas.service';
 import { LancamentosService } from './../lancamentos/lancamentos.service';
 import { CategoriasService } from './../categorias/categorias.service';
+import { AuthService } from './../seguranca/auth.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 
@@ -26,7 +27,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     ErrorHandlerService,
     PessoasService,
     LancamentosService,
-    CategoriasService
+    CategoriasService,
+    AuthService
   ]
 })
 export class CoreModule { }
