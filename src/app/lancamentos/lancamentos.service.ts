@@ -30,7 +30,6 @@ export class LancamentosService {
   constructor(private http: HttpClient) { }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
-    console.log(environment.host);
     let params: HttpParams = new HttpParams();
 
     params = params.set('page', filtro.page.toString());

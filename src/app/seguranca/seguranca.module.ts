@@ -8,7 +8,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SegurancaRoutingModule } from './seguranca-routing-module';
-import { environment } from 'src/environments/environment';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -24,7 +23,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: [environment.host]
+        blacklistedRoutes: [/localhost:8080\/oauth\/token/],
+        whitelistedDomains: ['localhost:8080']
       }
     }),
 
