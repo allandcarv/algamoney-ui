@@ -26,7 +26,7 @@ export class AuthService {
     let headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post<TokenResponse>(this.oauthTokenUrl, body, { headers })
+    return this.http.post<TokenResponse>(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => this.armazenarToken(response.access_token))
       .catch(error => {
@@ -38,6 +38,25 @@ export class AuthService {
       })
       ;
 
+  }
+
+  renewAccessToken(): Promise<void> {
+    let headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const body = 'grant_type=refresh_token';
+
+    return this.http.post<TokenResponse>(this.oauthTokenUrl, body, { headers, withCredentials: true })
+      .toPromise()
+      .then(response => {
+        this.armazenarToken(response.access_token);
+        console.log('Novo token armazenado');
+        return Promise.resolve(null);
+      })
+      .catch(error => {
+        console.log('Erro ao renovar token', error);
+        return Promise.resolve(null);
+      });
   }
 
   armazenarToken(token: string) {
