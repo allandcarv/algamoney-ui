@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(localePt);
 
+
 @NgModule({
   declarations: [
     AppComponent

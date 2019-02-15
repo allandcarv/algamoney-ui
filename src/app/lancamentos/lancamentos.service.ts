@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as moment from 'moment';
 
 import { Lancamento } from '../core/models/lancamento.model';
+import { environment } from 'src/environments/environment';
 
 interface HttpResults {
   content: any;
@@ -29,7 +30,7 @@ export class LancamentosService {
   constructor(private http: HttpClient) { }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    console.log(environment.host);
     let params: HttpParams = new HttpParams();
 
     params = params.set('page', filtro.page.toString());
@@ -47,7 +48,7 @@ export class LancamentosService {
       params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    return this.http.get<HttpResults>(`${this.lancamentosUrl}?resumo`, { headers, params })
+    return this.http.get<HttpResults>(`${this.lancamentosUrl}?resumo`, { params })
       .toPromise()
       .then(response => {
         const resposta = {
