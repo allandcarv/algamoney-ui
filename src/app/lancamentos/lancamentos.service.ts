@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as moment from 'moment';
 
 import { Lancamento } from '../core/models/lancamento.model';
-import { environment } from 'src/environments/environment';
 
 interface HttpResults {
   content: any;
@@ -24,6 +23,8 @@ export class LancamentoFiltro {
   providedIn: 'root'
 })
 export class LancamentosService {
+
+  httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   lancamentosUrl = 'http://localhost:8080/lancamentos';
 
@@ -60,27 +61,23 @@ export class LancamentosService {
   }
 
   excluir(codigo: number): Promise<void> {
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+  return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
     .toPromise()
     .then(() => null);
   }
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
-    let headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    headers = headers.append('Content-Type', 'application/json');
 
-    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers } )
+    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers: this.httpHeaders } )
       .toPromise()
       .then(response => response);
   }
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
-    let headers: HttpHeaders = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    headers = headers.append('Content-Type', 'application/json');
 
-    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, JSON.stringify(lancamento), { headers })
+    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, JSON.stringify(lancamento),
+     { headers: this.httpHeaders })
       .toPromise()
       .then(response => {
         const lancamentos = response;
@@ -90,9 +87,8 @@ export class LancamentosService {
   }
 
   buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`)
       .toPromise()
       .then(response => {
         const lancamentos = response;

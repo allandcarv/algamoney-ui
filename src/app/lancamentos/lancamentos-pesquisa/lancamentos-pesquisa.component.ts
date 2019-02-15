@@ -26,7 +26,7 @@ export class LancamentosPesquisaComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private errorHandlerService: ErrorHandlerService,
     private title: Title
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.title.setTitle('AlgaMoney - Pesquisa de Lançamentos');
