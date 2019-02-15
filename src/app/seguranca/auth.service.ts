@@ -24,7 +24,15 @@ export class AuthService {
 
     return this.http.post(this.oauthTokenUrl, body, { headers })
       .toPromise()
-      .then(response => this.armazenarToken(response.access_token));
+      .then(response => this.armazenarToken(response.access_token))
+      .catch(error => {
+        if (error.status === 400 && error.error.error === 'invalid_grant') {
+          return Promise.reject('Usuário e/ou senha inválido(s)');
+        }
+
+        return Promise.reject(error);
+      })
+      ;
 
   }
 
