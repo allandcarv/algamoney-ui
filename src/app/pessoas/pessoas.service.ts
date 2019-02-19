@@ -20,15 +20,12 @@ export class PessoasService {
   pessoasUrl = 'http://localhost:8080/pessoas';
   status: any;
 
-  httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-
   constructor(private http: HttpClient) {}
 
   pesquisar(filtro: PessoasFiltro): Promise<any> {
-    let params: HttpParams = new HttpParams();
-
-    params = params.set('page', filtro.page.toString());
-    params = params.set('size', filtro.size.toString());
+    let params: HttpParams = new HttpParams()
+      .set('page', filtro.page.toString())
+      .set('size', filtro.size.toString());
 
     if (filtro.nome) {
       params = params.set('nome', filtro.nome);
@@ -60,7 +57,7 @@ export class PessoasService {
   atualizarStatus(rowdata: any): Promise<any> {
     (rowdata.ativo) ? rowdata.ativo = false : rowdata.ativo = true;
 
-    return this.http.put(`${this.pessoasUrl}/${rowdata.codigo}/ativo`, rowdata.ativo, { headers: this.httpHeaders })
+    return this.http.put(`${this.pessoasUrl}/${rowdata.codigo}/ativo`, rowdata.ativo)
       .toPromise()
       .then( () => rowdata );
   }
@@ -70,13 +67,13 @@ export class PessoasService {
   }
 
   adicionarPessoas(pessoa: Pessoa): Promise<Pessoa> {
-    return this.http.post<Pessoa>(this.pessoasUrl, JSON.stringify(pessoa), { headers: this.httpHeaders })
+    return this.http.post<Pessoa>(this.pessoasUrl, JSON.stringify(pessoa))
       .toPromise()
       .then(response => response);
   }
 
   atualizarPessoa(pessoa: Pessoa): Promise<Pessoa> {
-    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, JSON.stringify(pessoa), { headers: this.httpHeaders })
+    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, JSON.stringify(pessoa))
       .toPromise()
       .then(response => response);
   }

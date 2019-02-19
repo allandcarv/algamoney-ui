@@ -24,8 +24,6 @@ export class LancamentoFiltro {
 })
 export class LancamentosService {
 
-  httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-
   lancamentosUrl = 'http://localhost:8080/lancamentos';
 
   constructor(private http: HttpClient) { }
@@ -69,15 +67,14 @@ export class LancamentosService {
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
 
-    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers: this.httpHeaders } )
+    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento))
       .toPromise()
       .then(response => response);
   }
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
 
-    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, JSON.stringify(lancamento),
-     { headers: this.httpHeaders })
+    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, JSON.stringify(lancamento))
       .toPromise()
       .then(response => {
         const lancamentos = response;

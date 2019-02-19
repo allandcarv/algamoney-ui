@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface TokenResponse {
   access_token: string;
@@ -58,6 +60,24 @@ export class AuthService {
         return Promise.resolve(null);
       });
   }
+
+  refreshToken(): Observable<string> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+
+    const params = new HttpParams()
+      .set('grant_type', 'refresh_token');
+
+    return this.http.post<TokenResponse>(this.oauthTokenUrl, null, { headers, params, withCredentials: true })
+      .pipe(
+        map(token => {
+          this.armazenarToken(token.access_token);
+          return token.access_token;
+        })
+      );
+  }
+
 
   armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token);
