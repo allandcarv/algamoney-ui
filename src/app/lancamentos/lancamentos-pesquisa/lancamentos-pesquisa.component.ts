@@ -6,6 +6,7 @@ import { LazyLoadEvent, MessageService } from 'primeng/components/common/api';
 
 import { LancamentosService, LancamentoFiltro } from './../lancamentos.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -25,7 +26,8 @@ export class LancamentosPesquisaComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private errorHandlerService: ErrorHandlerService,
-    private title: Title
+    private title: Title,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
