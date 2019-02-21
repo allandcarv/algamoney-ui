@@ -9,6 +9,8 @@ export interface TokenResponse {
   access_token: string;
 }
 
+export class NotAuthError {}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -73,6 +75,10 @@ export class AuthService {
       .pipe(
         map(token => {
           this.armazenarToken(token.access_token);
+          if (this.jwtHelper.isTokenExpired(localStorage.getItem('token'))) {
+            console.log('Refresh token expirado');
+            throw new NotAuthError();
+          }
           return token.access_token;
         })
       );
@@ -92,7 +98,18 @@ export class AuthService {
     }
   }
 
+  isTokenExpired(): boolean {
+    return this.jwtHelper.isTokenExpired(localStorage.getItem('token'));
+  }
+
   hasPermission(permission: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  }
+
+  checkPermission(roles: any): boolean {
+    for (const role of roles) {
+      console.log(role);
+      return this.hasPermission(role);
+    }
   }
 }

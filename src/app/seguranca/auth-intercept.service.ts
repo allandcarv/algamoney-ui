@@ -1,10 +1,9 @@
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, flatMap, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 
-import { AuthService } from 'src/app/seguranca/auth.service';
+import { AuthService, NotAuthError } from 'src/app/seguranca/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +30,8 @@ export class AuthInterceptService implements HttpInterceptor {
             mergeMap((newToken: string) => {
               req = req.clone({ setHeaders: { Authorization: `Bearer ${newToken}`}});
               return next.handle(req);
-            })
+            }),
+            catchError(() => { throw new NotAuthError(); })
           );
         }
 

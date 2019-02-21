@@ -10,12 +10,14 @@ import { LancamentosService } from './../lancamentos/lancamentos.service';
 import { CategoriasService } from './../categorias/categorias.service';
 import { AuthService } from './../seguranca/auth.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
+    NaoAutorizadoComponent
   ],
   exports: [
     NavbarComponent
