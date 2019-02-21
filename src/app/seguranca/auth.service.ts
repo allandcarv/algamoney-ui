@@ -108,7 +108,6 @@ export class AuthService {
 
   checkPermission(roles: any): boolean {
     for (const role of roles) {
-      console.log(role);
       return this.hasPermission(role);
     }
   }
