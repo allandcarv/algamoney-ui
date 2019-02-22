@@ -11,6 +11,7 @@ import { AuthGuard } from './auth.guard';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SegurancaRoutingModule } from './seguranca-routing-module';
 import { AuthInterceptService } from './auth-intercept.service';
+import { LogoutService } from './logout.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -39,7 +40,8 @@ export function tokenGetter() {
       useClass: AuthInterceptService,
       multi: true
     },
-    AuthGuard
+    AuthGuard,
+    LogoutService
   ]
 })
 export class SegurancaModule { }

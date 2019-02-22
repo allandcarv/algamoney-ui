@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export interface TokenResponse {
   access_token: string;
@@ -16,13 +17,14 @@ export class NotAuthError {}
 })
 export class AuthService {
 
-  oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  oauthTokenUrl: string;
 
   jwtHelper = new JwtHelperService();
   jwtPayload: any;
 
   constructor(private http: HttpClient) {
     this.carregarToken();
+    this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
   }
 
   login(user: string, pass: string): Promise<void> {
@@ -96,6 +98,11 @@ export class AuthService {
     if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  limparToken() {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
   }
 
   isTokenExpired(): boolean {

@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
 
 import { Pessoa } from '../core/models/pessoa.model';
 
@@ -17,10 +19,12 @@ export class PessoasFiltro {
 
 @Injectable()
 export class PessoasService {
-  pessoasUrl = 'http://localhost:8080/pessoas';
+  pessoasUrl: string;
   status: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.pessoasUrl = `${environment.apiUrl}/pessoas`;
+  }
 
   pesquisar(filtro: PessoasFiltro): Promise<any> {
     let params: HttpParams = new HttpParams()
