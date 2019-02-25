@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 import { AuthGuard } from './auth.guard';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -27,8 +28,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        blacklistedRoutes: [/localhost:8080\/oauth\/token/],
-        whitelistedDomains: ['localhost:8080']
+        blacklistedRoutes: [`${environment.apiUrl}/oauth/token`],
+        whitelistedDomains: [environment.apiDomain]
       }
     }),
 
