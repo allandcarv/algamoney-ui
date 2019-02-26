@@ -17,7 +17,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class LancamentosCadastroComponent implements OnInit {
 
-  lancamento = new Lancamento();
+  // lancamento = new Lancamento();
 
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
@@ -78,21 +78,23 @@ export class LancamentosCadastroComponent implements OnInit {
   carregarLancamento(codigoLancamento: number) {
     this.lancamentosService.buscarPorCodigo(codigoLancamento)
       .then(response => {
-        this.lancamento = response;
+        // this.lancamento = response;
+        this.formulario.setValue(response);
         this.alterarTituloLancamento();
       })
       .catch(error => this.errorHandlerService.handler(error));
   }
 
-  salvar(form: FormControl) {
-    if (this.lancamento.codigo) {
+  salvar() {
+    if (this.formulario.get('codigo').value) {
       this.atualizarLancamento();
     } else {
-      this.adicionarLancamento(form);
+      this.adicionarLancamento();
     }
   }
-  adicionarLancamento(form: FormControl) {
-    this.lancamentosService.adicionar(this.lancamento)
+
+  adicionarLancamento() {
+    this.lancamentosService.adicionar(this.formulario.value)
       .then(response => {
         this.showSuccess('Lançamento adicionado com sucesso');
         this.router.navigate(['/lancamentos', response.codigo]);
@@ -101,9 +103,10 @@ export class LancamentosCadastroComponent implements OnInit {
   }
 
   atualizarLancamento() {
-    this.lancamentosService.atualizar(this.lancamento)
+    this.lancamentosService.atualizar(this.formulario.value)
       .then(response => {
-        this.lancamento = response;
+        // this.lancamento = response;
+        this.formulario.setValue(response);
         this.showSuccess('Lançamento atualizado com sucesso');
         this.alterarTituloLancamento();
       })
@@ -125,8 +128,8 @@ export class LancamentosCadastroComponent implements OnInit {
       });
   }
 
-  novo(form: FormControl) {
-    form.reset();
+  novo() {
+    this.formulario.reset();
     setTimeout(function() {
       this.lancamento = new Lancamento();
     }.bind(this), 1);
@@ -139,6 +142,6 @@ export class LancamentosCadastroComponent implements OnInit {
   }
 
   alterarTituloLancamento() {
-    this.title.setTitle(`AlgaMoney - Editando Lançamento: ${this.lancamento.descricao}`);
+    this.title.setTitle(`AlgaMoney - Editando Lançamento: ${this.formulario.get('descricao')}`);
   }
 }
