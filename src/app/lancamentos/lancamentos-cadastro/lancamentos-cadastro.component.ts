@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -79,7 +79,7 @@ export class LancamentosCadastroComponent implements OnInit {
     this.lancamentosService.buscarPorCodigo(codigoLancamento)
       .then(response => {
         // this.lancamento = response;
-        this.formulario.setValue(response);
+        this.formulario.patchValue(response);
         this.alterarTituloLancamento();
       })
       .catch(error => this.errorHandlerService.handler(error));
@@ -106,7 +106,7 @@ export class LancamentosCadastroComponent implements OnInit {
     this.lancamentosService.atualizar(this.formulario.value)
       .then(response => {
         // this.lancamento = response;
-        this.formulario.setValue(response);
+        this.formulario.patchValue(response);
         this.showSuccess('Lançamento atualizado com sucesso');
         this.alterarTituloLancamento();
       })
@@ -130,10 +130,12 @@ export class LancamentosCadastroComponent implements OnInit {
 
   novo() {
     this.formulario.reset();
-    setTimeout(function() {
-      this.lancamento = new Lancamento();
-    }.bind(this), 1);
 
+    // setTimeout(function() {
+    //  this.lancamento = new Lancamento();
+    // }.bind(this), 1);
+
+    this.configurarFormulario();
     this.router.navigate(['/lancamentos/novo']);
   }
 
