@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ export class DashboardComponent implements OnInit {
     labels: ['Mensal', 'Educação', 'Lazer', 'Imprevistos'],
     datasets: [
       {
-        data: [2500, 2700, 550, 235],
+        data: [2500.42, 2700.76, 550, 235],
         backgroundColor: ['#FF9900', '#109618', '#990099', '#3B3EAC']
       }
     ]
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
     datasets: [
       {
         label: 'Receitas',
-        data: [4, 10, 18, 5, 1, 20, 3],
+        data: [4, 10.5, 18.2, 5, 1, 20, 3],
         borderColor: '#3366CC'
       }, {
         label: 'Despesas',
@@ -32,7 +33,23 @@ export class DashboardComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  options = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          const dataset = data.datasets[tooltipItem.datasetIndex];
+          const valor = dataset.data[tooltipItem.index];
+          const label = dataset.label ? (dataset.label + ': ') : '';
+
+          return label + this.decimalPipe.transform(valor, '1.2-2');
+        }
+      }
+    }
+  }
+
+  constructor(
+    private decimalPipe: DecimalPipe
+  ) { }
 
   ngOnInit() {
   }
